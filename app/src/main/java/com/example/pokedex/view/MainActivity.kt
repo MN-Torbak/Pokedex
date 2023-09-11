@@ -28,6 +28,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    //TODO: callviewmodel to get the list from the api
+                    //TODO: observ the list from the viewmodel
+                    // viewmodel.pokemonlist.observ {
+                    // observ Greetings (pokemonlist)
+                    //
                     Greetings()
                 }
             }
