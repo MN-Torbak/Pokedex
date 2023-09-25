@@ -2,6 +2,7 @@ package com.example.pokedex.network
 
 import com.example.pokedex.model.Pokemon
 import com.example.pokedex.model.PokemonListFromResults
+import com.example.pokedex.model.PokemonSpecies
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -29,6 +30,9 @@ interface PokeApiService {
 
     @GET("pokemon?limit=151")
     suspend fun getPokemonList() : PokemonListFromResults
+
+    @GET("pokemon-species/{id}")
+    suspend fun getPokemonDescription(@Path("id") id: String?): PokemonSpecies
 
 }
 

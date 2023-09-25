@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.model.Pokemon
-import com.example.pokedex.model.PokemonFromResults
 import com.example.pokedex.model.PokemonListFromResults
+import com.example.pokedex.model.PokemonSpecies
 import com.example.pokedex.network.PokeApi
 import kotlinx.coroutines.launch
 
@@ -20,6 +20,8 @@ class PokemonViewModel : ViewModel() {
     val pokemonLiveData: MutableLiveData<Pokemon> = _pokemon
     private val _pokemonList = MutableLiveData<PokemonListFromResults>()
     val pokemonListLiveData: MutableLiveData<PokemonListFromResults> = _pokemonList
+    private val _pokemonDescription = MutableLiveData<PokemonSpecies>()
+    val pokemonDescriptionLiveData: MutableLiveData<PokemonSpecies> = _pokemonDescription
 
     fun getPokemon(pokemonName: String) {
         viewModelScope.launch {
@@ -43,6 +45,19 @@ class PokemonViewModel : ViewModel() {
             } catch (e: Exception) {
                 _pokeStatus.value = PokeApiStatus.ERROR
                 _pokemonList.value = PokeApi.retrofitService.getPokemonList()
+            }
+        }
+    }
+
+    fun getPokemonDescription(id: String?) {
+        viewModelScope.launch {
+            try {
+                _pokeStatus.value = PokeApiStatus.LOADING
+                _pokemonDescription.value = PokeApi.retrofitService.getPokemonDescription(id)
+                _pokeStatus.value = PokeApiStatus.DONE
+            } catch (e: Exception) {
+                _pokeStatus.value = PokeApiStatus.ERROR
+                _pokemonDescription.value = PokeApi.retrofitService.getPokemonDescription(id)
             }
         }
     }

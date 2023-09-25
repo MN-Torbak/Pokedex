@@ -29,3 +29,11 @@ data class PokemonSprites(
     @Json(name = "front_shiny")val frontShiny: String?,
     @Json(name = "front_shiny_female")val frontShinyFemale: String?
 )
+
+data class PokemonSpecies(
+    @Json(name="flavor_text_entries") val description: List<DescriptionPokemon>
+)
+
+data class DescriptionPokemon (
+    @Json(name="flavor_text") val flavorText: String
+)
